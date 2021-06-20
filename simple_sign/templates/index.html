@@ -2,6 +2,7 @@
 	<head>
 
 		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
 		<style>
 
@@ -50,5 +51,14 @@ body {
 				<br><br><a href="./code">본 서비스는 개인정보를 수집하지 않습니다. 입증을 위해 server side 코드를 공개합니다.</a>
 			</div>
 		</form>
+		<script>
+$('input[type=submit]').on('click', function(e) {
+	$('#sign').append($('<div style="background-color:#ff000033; padding:5px;"><p>서명이 요청되었습니다. 잠시만 기다려주세요. 10초 이내에 처리되지 않는다면 새로고침 후 다시 진행해보세요</p></div>'));
+	$('input[type=submit]').attr('disabled', true)
+	$(e.target).parents('form')[0].submit()
+})
+
+		
+		</script>
 	</body>
 </html>
