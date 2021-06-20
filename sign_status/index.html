@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js" integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap" rel="stylesheet">
+		<style>
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+	margin: 5%;
+}
+
+img {
+	box-shadow: 2px 2px 20px 0px #b3b3b3;
+}
+
+span.gray-text {
+	color: #999;
+	font-size: 10pt;
+}
+
+@media ( max-width: 1000px ) {
+	h2 { font-size: 35pt; }
+	p { font-size: 28pt; }
+	span.gray-text { font-size: 18pt; }
+}
+		</style>
+		<script>
+function print_status_graph(sign_count, total_count) {
+	const data = {
+		labels: [
+			'미서명 인원',
+			'서명 인원'
+		],
+		datasets: [{
+			label: '서명 비율',
+			data: [total_count - sign_count, sign_count],
+			backgroundColor: [
+				'rgb(255, 99, 132)',
+				'rgb(54, 162, 235)'
+				//'rgb(255, 205, 86)'
+			],
+			hoverOffset: 4
+		}]
+	};
+	const config = {
+		type: 'pie',
+		data: data,
+		options: {
+			responsive: false
+		}
+	};
+
+	var myChart = new Chart(
+		$('#status_chart'),
+		config
+	);
+}
+
+function print_line_graph(data_list, number_of_print) {
+	var print_list = data_list.filter(function(e, i) {
+		//console.log(e);
+		var date = e.time.split(" ")[0];
+		var time = e.time.split(" ")[1];
+
+		var hour = parseInt(time.split(":")[0]);
+		var minute = parseInt(time.split(":")[1]);
+
+		if (
+			(hour > 7 || hour < 6)
+			&& (hour % 6 == 0)
+			&& (minute == 0)
+		) {
+			return true;
+		}
+		return false;
+	});
+	//console.log(print_list);
+	var labels = print_list.map(function(e) {return e.time});
+	var values = print_list.map(function(e) {return e.count});
+
+	var ctx = document.getElementById('myChart');
+	var myChart = new Chart(ctx, {
+	        type: 'line',
+	        data: {
+	                labels: labels,
+	                datasets: [{
+	                        label: '서명 수',
+	                        data: values,
+	                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+	                        borderColor: 'rgba(255, 99, 132, 1)'
+	                }]
+	        },
+		options: {}
+	});
+}
+		</script>
+	</head>
+	<body>
+		<div id="status" class="status"></div>
+		<canvas id="status_chart" width="250" height="200"></canvas>
+		<div>
+			<p>&#x1F64F 서명하러가기 <span class="gray-text"> (아래 두 링크 중 원하는 링크를 선택하세요)</span></p>
+			<ul>
+				<li><p><a href="../simple_sign/">간편 서명하기</a></a></li>
+				<li><p><a href="http://www.kyonggi.ac.kr/boardView.kgu?bcode=B0077&id=331530&pid=34&fbclid=IwAR1kMENhX6uX7MNYRMVJDC-WYIiF7Xtyt04HgHkaaHEaaEx5YaFCorm8sdM" target="_blank">본문부터 읽어보기</a></p></li>
+				<li><p><a href="http://www.kyonggi.ac.kr/boardView.kgu?bcode=B0077&id=331530&pid=34&fbclid=IwAR1kMENhX6uX7MNYRMVJDC-WYIiF7Xtyt04HgHkaaHEaaEx5YaFCorm8sdM#boardCmt" target="_blank">맨 아래 서명부분으로 바로가기</a><span class="gray-text">&nbsp;( 페이지가 완전히 뜰 때까지 스크롤하지 마세요)</span></p></li>
+			</ul>
+			<p>&#x1F4E2 서명 마감일: 06월 24일 23시 59분 (D<span class="dday"></span>)</p>
+		</div>
+		<br><hr></br>
+		<div id="qna" class="qna">
+			<p style="color: #999">※ 더 추가할 내용이 있다면 알려주세요</p>
+			<h2>QnA</h2>
+			<p><b><u>Q0. 서명을 왜 해야 하나요?</u></b></p>
+			<ul>
+				<li><p><a href="https://everytime.kr/385881/v/196234629" target="_blank">여러 관점 정리(입지, 취업, 국가장학금, 졸업장 명의)</a></p></li><br>
+				<li><p><a href="https://everytime.kr/377396/v/196228117" target="_blank">학교 발전가능성 관점</a></p></li>
+				<li><p><a href="https://everytime.kr/377396/v/195710518" target="_blank">범죄자 명의의 졸업장을 수여하게 된다는 관점</a></p></li>
+				<li><p><a href="https://everytime.kr/377396/v/195585977" target="_blank">이사진이 손총장 지인으로 구성되는 문제에 대한 관점</a></p></li>
+			</ul>
+			<br>
+			<ul>
+				<li><p><a href="https://everytime.kr/377396/v/135762967" target="_blank">[경기대학교 교수회, 채용비리 손종국 전 총장 고발]</a></p></li>
+				<li><p><a href="https://everytime.kr/377396/v/161901923" target="_blank">["교수채용 대가로 2억?" 손종국 전 경기대 총장 고발] </a></p></li>
+				<li><p><a href="https://everytime.kr/377396/v/186548021" target="_blank">[경기대가 어쩌다가 이 모양인가]</a></p></li>
+			</ul>
+			<p><b><u>Q1. 휴학생, 졸업생도 서명할 수 있나요?</u></b></p>
+			<p>A1. 에브리타임에 올라온 내용을 보면 가능한 것으로 보입니다.</p>
+			<ul>
+				<li><p><a href="https://everytime.kr/377396/v/195844469" target="_blank">휴학생 참고링크(글쓴이)</a></p></li>
+				<li><p><a href="https://everytime.kr/377396/v/195991298" target="_blank">졸업생 참고링크(익명8)</a></p></li>
+			</ul>
+			<p><b><u>Q2. [의견등록] 버튼이 클릭이 안돼요</u></b></p>
+			<p>A2. 로그인이 되어있지 않아서 그렇습니다. 로그인을 먼저 해주세요.</p>
+			<p><b><u>Q3. 계정이 비활성화 돼서 로그인이 안돼요 </u></b></p>
+			<p>A3. KUTIS에 들어가서 로그인 화면에서 아래 [본인인증으로 비밀번호 초기화]버튼을 눌러서 휴대폰 인증하고, 비밀번호를 초기화 해보세요. 몇분 내에 정상 로그인 됩니다.</p>
+			<img src="./images/1.png" width="500px">
+			<p><b><u>Q4. 모바일로는 서명을 할 수 없나요?</u></b></p>
+			<p>A4. 모바일로도 가능합니다. 로그인이 되어있는지 확인해보세요.</p>
+		</div>
+		<br><hr><br>
+		<div id="graph" class="graph">
+			<h2>서명 수 변화 추이</h2>
+			<canvas id="myChart" width="400" height="100"></canvas>
+		</div>
+		<script>
+console.log("https://github.com/g0pher98")
+			
+// D-Day 
+var now = new Date();
+var dday = now.getDate() - 24;
+if (dday < 0) {
+	dday = String(dday);
+} else {
+	dday = "+" + String(dday);
+}
+$('.dday').text(dday);
+
+
+
+// 서명수 load
+var data = "./data.json";
+fetch(data).then(r => r.json()).then(function(resp) {
+	var total = 15500;
+	//console.log(resp);
+	var last = resp[resp.length - 1];
+	var percent = Math.round((last.count / total) * 100 * 100) / 100;
+	$('.status').append(`<p>Last update : ${last.time}</p>`);
+	$('.status').append(`<h2>현재 서명 수 : ${last.count}명 (약 ${percent}%)</h2>`);
+	print_status_graph(last.count, total);
+	print_line_graph(resp, 10);
+});
+		</script>
+		<br><hr><br>
+		<details>
+			<summary>수정내역</summary>
+			<p>- 업데이트 주기 5분 간격으로 변경</p>
+			<p>- 서명 수 변화 추이 추가</p>
+			<p>- 휴학생, 졸업생 QnA 추가</p>
+			<p>- 서명 마감일 추가</p>
+			<p>- 서명 비율 차트 추가</p>
+			<p>- 서명 너무 많아서 맨 아래로 바로 가는 링크 생성</p>
+			<p>- 서명 마감일 D-Day 추가</p>
+			<p>- 서명을 해야하는 이유 추가</p>
+			<p>- 모바일에서 글씨 더 크게 보이도록 수정</p>
+			<p>- 간단하게 서명할 수 있는 기능 추가</p>
+		</details>
+	</body>	
+</html>
