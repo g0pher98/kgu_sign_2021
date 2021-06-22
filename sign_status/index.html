@@ -119,7 +119,8 @@ function print_line_graph(data_list, number_of_print) {
 				<li><p><a href="https://everytime.kr/385881/v/196234629" target="_blank">여러 관점 정리(입지, 취업, 국가장학금, 졸업장 명의)</a></p></li><br>
 				<li><p><a href="https://everytime.kr/377396/v/196228117" target="_blank">학교 발전가능성 관점</a></p></li>
 				<li><p><a href="https://everytime.kr/377396/v/195710518" target="_blank">범죄자 명의의 졸업장을 수여하게 된다는 관점</a></p></li>
-				<li><p><a href="https://everytime.kr/377396/v/195585977" target="_blank">이사진이 손총장 지인으로 구성되는 문제에 대한 관점</a></p></li>
+				<li><p><a href="https://everytime.kr/377396/v/195585077" target="_blank">이사진이 손 전 총장 지인으로 구성되는 문제에 대한 관점(1)</a></p></li>
+				<li><p><a href="https://everytime.kr/377396/v/195585977" target="_blank">이사진이 손 전 총장 지인으로 구성되는 문제에 대한 관점(2)</a></p></li>
 			</ul>
 			<br>
 			<ul>
@@ -164,7 +165,7 @@ $('.dday').text(dday);
 // 서명수 load
 var data = "./data.json";
 fetch(data).then(r => r.json()).then(function(resp) {
-	var total = 15500;
+	var total = 14000;
 	//console.log(resp);
 	var last = resp[resp.length - 1];
 	var percent = Math.round((last.count / total) * 100 * 100) / 100;
@@ -175,6 +176,8 @@ fetch(data).then(r => r.json()).then(function(resp) {
 });
 		</script>
 		<br><hr><br>
+		<p>관련된 모든 소스코드는 아래에 업로드해두었습니다.</p>
+		<p><a href="https://github.com/g0pher98/kgu_sign_2021">https://github.com/g0pher98/kgu_sign_2021</a></p>
 		<details>
 			<summary>수정내역</summary>
 			<p>- 업데이트 주기 5분 간격으로 변경</p>
@@ -187,6 +190,9 @@ fetch(data).then(r => r.json()).then(function(resp) {
 			<p>- 서명을 해야하는 이유 추가</p>
 			<p>- 모바일에서 글씨 더 크게 보이도록 수정</p>
 			<p>- 간단하게 서명할 수 있는 기능 추가</p>
+			<p>- 간편 서명 요청 시, 서명이 요청됨을 알 수 있도록 수정</p>
+			<p>- 서명을 해야하는 이유 추가</p>
+			<p>- 중복 서명은 카운팅에서 제외. 동명이인은 방법이 없음.</p>
 		</details>
 	</body>	
 </html>
